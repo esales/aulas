@@ -276,34 +276,6 @@ Se o usuário digitar "joao@discente.ifpe.edu.br", o `req.body` será:
 }
 ```
 
-<!-- #### Exemplo com JSON
-
-```javascript
-app.post('/filmes', (req, res) => {
-  console.log(req.body);
-});
-```
-
-Requisição enviada:
-
-```json
-{
-  "titulo": "Matrix",
-  "ano": 1999
-}
-```
-
-Resultado:
-
-```javascript
-{
-  titulo: 'Matrix',
-  ano: 1999
-}
-```
-
---- -->
-
 #### Importante
 
 Para o `req.body` funcionar, é necessário habilitar o middleware:
@@ -420,122 +392,6 @@ views/
     cabecalho.handlebars
     rodape.handlebars
 ```
-
-<!-- ### Layout Principal
-
-O layout é o esqueleto HTML que envolve todas as páginas. Crie `views/layouts/main.handlebars`:
-
-```html
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini Netflix</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background-color: #141414;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
-    nav {
-      background-color: #000000;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    nav .logo {
-      color: #e50914;
-      font-size: 28px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    nav a {
-      color: #ffffff;
-      text-decoration: none;
-      margin-left: 20px;
-    }
-    nav a:hover {
-      color: #e50914;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 30px auto;
-      padding: 0 20px;
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #999;
-      margin-top: 50px;
-      border-top: 1px solid #333;
-    }
-  </style>
-</head>
-<body>
-
-  <nav>
-    <a href="/" class="logo">MINIFLIX</a>
-    <div>
-      <a href="/">Início</a>
-      <a href="/filmes">Filmes</a>
-      <a href="/filmes/novo">Adicionar Filme</a>
-    </div>
-  </nav>
-
-  <div class="container">
-    {{{body}}}
-  </div>
-
-  <footer>
-    <p>Mini Netflix &copy; 2024 — Projeto de Aprendizado Node.js</p>
-  </footer>
-
-</body>
-</html>
-```
-
-O `{{{body}}}` é onde o conteúdo de cada página será inserido. -->
-
-<!-- ### Criando Views
-
-### View da página inicial — `views/home.handlebars`:
-
-```html
-<h1>{{titulo}}</h1>
-<p>{{descricao}}</p>
-```
-
-### View de lista de filmes — `views/filmes/index.handlebars`:
-
-```html
-<h1>Catálogo de Filmes</h1>
-
-{{#if filmes.length}}
-  <div class="grid-filmes">
-    {{#each filmes}}
-      <div class="card-filme">
-        <img src="{{this.capa}}" alt="{{this.titulo}}">
-        <div class="info">
-          <h3>{{this.titulo}}</h3>
-          <p>{{this.ano}} | {{this.categoria}}</p>
-          <p>Nota: {{this.nota}}/10</p>
-          <a href="/filmes/{{this.id}}">Ver detalhes</a>
-        </div>
-      </div>
-    {{/each}}
-  </div>
-{{else}}
-  <p>Nenhum filme cadastrado ainda. <a href="/filmes/novo">Adicionar o primeiro!</a></p>
-{{/if}}
-``` -->
-
 ### Sintaxe do Handlebars
 
 #### Expressões simples:
@@ -545,12 +401,6 @@ Permitem exibir valores dinâmicos enviados pelo servidor diretamente no HTML us
 {{nome}}
 {{usuario.email}}
 ```
-
-<!-- ### HTML não escapado (use com cuidado):
-
-```handlebars
-{{{conteudoHtml}}}
-``` -->
 
 #### Condicional if/else:
 Permite exibir conteúdos diferentes dependendo de uma condição usando {{#if}} e {{else}}.
@@ -572,8 +422,6 @@ Permite percorrer arrays ou objetos e repetir blocos de HTML para cada item usan
 {{/each}}
 ```
 
-<!-- Dentro do `each`, `@index` dá o índice e `@key` a chave do objeto. -->
-
 #### Unless (quando não...):
 Permite exibir um bloco de conteúdo quando a condição for falsa usando {{#unless}}.
 
@@ -582,57 +430,6 @@ Permite exibir um bloco de conteúdo quando a condição for falsa usando {{#unl
   <p>Operação realizada com sucesso!</p>
 {{/unless}}
 ```
-
-<!-- ## 3.8 Partials
-
-Partials são fragmentos de template reutilizáveis. Crie `views/partials/mensagem.handlebars`:
-
-```html
-{{#if mensagem}}
-  <div class="mensagem {{mensagem.tipo}}">
-    <p>{{mensagem.texto}}</p>
-  </div>
-{{/if}}
-```
-
-Use em qualquer view:
-
-```handlebars
-{{> mensagem}}
-<h1>Conteúdo da página</h1>
-```
-
-## 3.9 Helpers Customizados
-
-Helpers são funções que você pode chamar dentro dos templates:
-
-```javascript
-const { engine } = require('express-handlebars');
-
-app.engine('handlebars', engine({
-  helpers: {
-    // Formata nota com uma casa decimal
-    formatarNota: function(nota) {
-      return parseFloat(nota).toFixed(1);
-    },
-    // Verifica se dois valores são iguais
-    igual: function(a, b) {
-      return a === b;
-    },
-    // Retorna o ano atual
-    anoAtual: function() {
-      return new Date().getFullYear();
-    }
-  }
-}));
-```
-
-No template:
-
-```handlebars
-<p>Nota: {{formatarNota nota}}</p>
-<p>Ano: {{anoAtual}}</p>
-``` -->
 
 ### Passando Dados para as Views
 Os dados podem ser enviados do servidor para a view através do método render(), permitindo gerar conteúdo dinâmico no HTML.
@@ -737,9 +534,9 @@ View `home.handlebars`:
 </ul>
 ```
 
-### Exemplo Completo - Express + Handlebars
+## Exemplo Completo - Express + Handlebars
 
-#### Instalando as dependências
+### Instalando as dependências
 
 ```bash
 npm init -y
@@ -749,7 +546,7 @@ npm install express express-handlebars
 
 ---
 
-#### Estrutura do Projeto
+### Estrutura do Projeto
 
 ```txt
 projeto/
@@ -765,7 +562,7 @@ projeto/
 
 ---
 
-#### app.js
+### app.js
 
 ```javascript
 const express = require('express');
@@ -780,7 +577,7 @@ app.use(express.json());
 
 
 // Configurando Handlebars
-app.engine('handlebars', exphbs.engine());
+app.engine('handlebars', exphbs.engine({defaultLayout: false}));
 
 app.set('view engine', 'handlebars');
 
@@ -813,17 +610,17 @@ app.get('/filmes', (req, res) => {
 
 
 // Rota GET - Formulário de cadastro
-app.get('/filmes/cadastrar', (req, res) => {
-
-  res.render('cadastrarFilme');
-
-});
+app.get(
+  '/filmes/cadastrar', 
+  (req, res) => res.render('cadastrarFilme')
+);
 
 
 // Rota POST - Cadastrar filme
 app.post('/filmes', (req, res) => {
 
-  const { nome, ano } = req.body;
+  const nome = req.body.nome;
+  const ano = req.body.ano;
 
   const novoFilme = {
     id: filmes.length + 1,
@@ -837,15 +634,6 @@ app.post('/filmes', (req, res) => {
 
 });
 
-
-// Rota DELETE
-app.delete('/filmes/:id', (req, res) => {
-
-  res.send(`Filme ${req.params.id} removido`);
-
-});
-
-
 // Inicializando servidor
 app.listen(3000, () => {
 
@@ -856,7 +644,7 @@ app.listen(3000, () => {
 
 ---
 
-#### views/home.handlebars
+### views/home.handlebars
 
 ```html
 <h1>{{titulo}}</h1>
@@ -870,7 +658,7 @@ app.listen(3000, () => {
 
 ---
 
-#### views/filmes.handlebars
+### views/filmes.handlebars
 
 ```html
 <h1>Lista de Filmes</h1>
@@ -896,7 +684,7 @@ app.listen(3000, () => {
 
 ---
 
-#### views/cadastrarFilme.handlebars
+### views/cadastrarFilme.handlebars
 
 ```html
 <h1>Cadastrar Filme</h1>
@@ -941,13 +729,13 @@ Control (ctrl) + c
 ---
 ---
 
-### Exercícios - Express.js Básico
+## Exercícios - Express.js Básico
 
 ---
 
-#### Rotas Básicas
+### Rotas Básicas
 
-##### Exercício 1
+#### Exercício 1
 
 Crie uma aplicação Express com uma rota GET `/` que exiba:
 
@@ -957,13 +745,13 @@ Bem-vindo ao sistema
 
 ---
 
-##### Exercício 2
+#### Exercício 2
 
 Crie uma rota GET `/sobre` que exiba uma mensagem sobre a aplicação.
 
 ---
 
-##### Exercício 3
+#### Exercício 3
 
 Crie uma rota GET `/contato` retornando um JSON com:
 
@@ -976,7 +764,7 @@ Crie uma rota GET `/contato` retornando um JSON com:
 
 ---
 
-##### Exercício 4
+#### Exercício 4
 
 Crie uma rota GET `/erro` que retorne:
 - status HTTP `404`
@@ -984,21 +772,21 @@ Crie uma rota GET `/erro` que retorne:
 
 ---
 
-##### Exercício 5
+#### Exercício 5
 
 Crie uma rota GET `/inicio` que redirecione o usuário para `/`.
 
 ---
 
-#### Parâmetros de Rota
+### Parâmetros de Rota
 
-##### Exercício 6
+#### Exercício 6
 
 Crie uma rota GET `/usuarios/:id`.
 
 A rota deve exibir o ID enviado na URL.
 
-###### Exemplo
+##### Exemplo
 
 ```txt
 /usuarios/10
@@ -1012,7 +800,7 @@ Usuário 10
 
 ---
 
-##### Exercício 7
+#### Exercício 7
 
 Crie uma rota GET `/produtos/:nome`.
 
@@ -1020,7 +808,7 @@ A rota deve exibir o nome do produto enviado.
 
 ---
 
-##### Exercício 8
+#### Exercício 8
 
 Crie uma rota GET `/filmes/:id/:nome`.
 
@@ -1030,15 +818,15 @@ Exiba:
 
 ---
 
-#### Query Strings
+### Query Strings
 
-##### Exercício 9
+#### Exercício 9
 
 Crie uma rota GET `/buscar`.
 
 Receba a query string `nome`.
 
-###### Exemplo
+##### Exemplo
 
 ```txt
 /buscar?nome=Joao
@@ -1052,7 +840,7 @@ Buscando por: Joao
 
 ---
 
-##### Exercício 10
+#### Exercício 10
 
 Crie uma rota GET `/produtos`.
 
@@ -1064,7 +852,7 @@ Exiba os valores recebidos.
 
 ---
 
-##### Exercício 11
+#### Exercício 11
 
 Crie uma rota GET `/usuarios`.
 
@@ -1078,9 +866,9 @@ Filtrando usuários com idade X
 
 ---
 
-#### Handlebars
+### Handlebars
 
-##### Exercício 12
+#### Exercício 12
 
 Configure o Handlebars no Express.
 
@@ -1092,7 +880,7 @@ Bem-vindo ao sistema
 
 ---
 
-##### Exercício 13
+#### Exercício 13
 
 Crie uma rota `/perfil`.
 
@@ -1104,7 +892,7 @@ Exiba essas informações no HTML usando Handlebars.
 
 ---
 
-##### Exercício 14
+#### Exercício 14
 
 Crie uma view que exiba uma lista de filmes usando `{{#each}}`.
 
@@ -1112,7 +900,7 @@ Os filmes devem ser enviados pelo servidor.
 
 ---
 
-##### Exercício 15
+#### Exercício 15
 
 Crie uma view com:
 - `if`
@@ -1123,7 +911,7 @@ Exiba mensagens diferentes dependendo dos dados enviados.
 
 ---
 
-##### Exercício 16
+#### Exercício 16
 
 Crie uma página `/filmes` que:
 - liste filmes
@@ -1133,15 +921,15 @@ Crie uma página `/filmes` que:
 
 ---
 
-#### Aplicação completa
+### Aplicação completa
 
-##### Exercício 17
+#### Exercício 17
 
 Crie um pequeno sistema inspirado no TikTok utilizando Express.js e Handlebars.
 
 ---
 
-##### Rotas
+#### Rotas
 
 Crie as seguintes rotas:
 
@@ -1154,7 +942,7 @@ Crie as seguintes rotas:
 
 ---
 
-##### Propriedades do Vídeo
+#### Propriedades do Vídeo
 
 Cada vídeo deve possuir:
 
@@ -1169,7 +957,7 @@ Cada vídeo deve possuir:
 
 ---
 
-##### Requisitos
+#### Requisitos
 
 O sistema deve:
 
@@ -1184,7 +972,7 @@ O sistema deve:
 
 ---
 
-##### Página de Listagem
+#### Página de Listagem
 
 A página `/videos` deve exibir:
 
@@ -1197,7 +985,7 @@ A página `/videos` deve exibir:
 
 ---
 
-##### Página de Cadastro
+#### Página de Cadastro
 
 A página `/videos/cadastrar` deve possuir um formulário com campos para:
 - título
@@ -1208,3 +996,462 @@ A página `/videos/cadastrar` deve possuir um formulário com campos para:
 - hashtag
 - URL do vídeo
 - URL da thumbnail
+
+---
+---
+
+## Sequelize
+
+> **Sequelize** é um ORM (*Object-Relational Mapper*) para Node.js. Ele permite interagir com bancos de dados relacionais usando JavaScript, sem precisar escrever SQL diretamente. 
+
+---
+
+### O que é um ORM?
+
+Um ORM faz a ponte entre o código JavaScript e o banco de dados.
+Em vez de escrever SQL puro, você escreve código JavaScript e o ORM traduz para SQL automaticamente.
+
+Exemplo - sem ORM:
+```sql
+INSERT INTO filmes (nome, ano) VALUES ('Matrix', 1999);
+```
+
+Exemplo - com Sequelize:
+```javascript
+await Filme.create({ nome: 'Matrix', ano: 1999 });
+```
+
+O resultado é o mesmo. A diferença é que com o Sequelize você trabalha com objetos JavaScript.
+
+### O que é SQLite3?
+
+SQLite3 é um banco de dados relacional que fica salvo em um único arquivo no seu projeto.
+Não precisa instalar nenhum servidor separado, funciona direto na sua máquina.
+
+É ideal para:
+- aprendizado
+- projetos pequenos
+- protótipos
+
+### Instalação
+
+```bash
+npm install sequelize sqlite3
+```
+
+---
+
+### Criando a conexão
+
+Crie o arquivo **bd.js** na pasta *config*:
+
+```javascript
+const { Sequelize } = require('sequelize');
+
+const sequelize = new Sequelize({
+  dialect: 'sqlite',
+  storage: './bd.sqlite'
+});
+
+module.exports = sequelize;
+```
+
+O campo `storage` define o nome do arquivo onde o banco será salvo.
+Quando você rodar a aplicação pela primeira vez, esse arquivo será criado automaticamente.
+
+---
+
+### Testando a conexão
+
+No arquivo **app.js** inclua no início:
+
+```javascript
+const sequelize = require('./config/bd');
+```
+
+e inclua no final:
+```javascript
+async function conectarBD() {
+  try {
+    await sequelize.authenticate();
+    console.log('Conexão com o banco de dados estabelecida com sucesso!');
+  } catch (erro) {
+    console.error('Erro ao conectar:', erro);
+  }
+}
+
+conectarBD();
+```
+
+Ao executar a aplicação, caso tudo ocorra bem, será exibida a mensagem *"Conexão com o banco de dados estabelecida com sucesso!"*. Além disso, será criado o arquivo **bd.sqlite** na raíz do projeto.
+
+---
+
+### Models
+
+Um **Model** representa uma tabela do banco de dados.
+Cada propriedade do model vira uma coluna na tabela.
+
+#### Criando um Model
+
+Na pasta *models/* crie o arquivo **Filme.model.js**:
+
+```javascript
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/bd');
+
+const Filme = sequelize.define(
+  'Filme', 
+  {
+    nome: {
+      type: DataTypes.STRING,
+    },
+    ano: {
+      type: DataTypes.INTEGER,
+    }
+  },
+  {
+    tableName: 'Filmes',
+    timestamps: true
+  }
+);
+
+module.exports = Filme;
+```
+Primeiro são importados os tipos de dados (DataTypes) e as configurações de conexão com o banco de dados.
+
+Depois, o método define() cria um model. Ele recebe três argumentos:
+1. Nome do model 
+2. Colunas da tabela
+3. Configurações extras
+
+
+O Sequelize vai criar automaticamente a tabela `Filmes` no banco com as colunas `nome`(String) e `ano`(Integer).
+Ele adiciona a coluna `id` como chave primária. Além disso, a propriedade *timestamps* indica que queremos os campos `createdAt` (data/hora de criação do registro) e `updatedAt` (data/hora da última atualização).
+
+#### Tipos de dados mais usados
+
+| Tipo | Descrição |
+|---|---|
+| `DataTypes.STRING` | Texto curto (VARCHAR) |
+| `DataTypes.TEXT` | Texto longo |
+| `DataTypes.INTEGER` | Número inteiro |
+| `DataTypes.FLOAT` | Número decimal |
+| `DataTypes.BOOLEAN` | Verdadeiro ou falso |
+| `DataTypes.DATE` | Data e hora |
+
+#### Sincronizando o Model com o banco
+O método `authenticate` faz a autenticação no banco de dados mas não realiza a criação das tabelas.
+
+Para isso utilizamos o método `sync()` que cria as tabelas no banco caso ainda não exista.
+
+Portanto, vamos alterar o método `conectarBD()` do arquivo **app.js**. O método `authenticate()` deve ser alterado para o `sync()`:
+
+```javascript
+    await sequelize.sync();
+```
+---
+
+### Operações no BD (CRUD)
+
+CRUD é a sigla para as quatro operações básicas com dados:
+
+| Operação | Significado | Método Sequelize |
+|---|---|---|
+| **C**reate | Criar | `create()` |
+| **R**ead | Ler / Buscar | `findAll()`, `findByPk()` |
+| **U**pdate | Atualizar | `update()` |
+| **D**elete | Deletar | `destroy()` |
+
+---
+
+### Create - Criando um registro
+
+O método `create()` insere um novo registro na tabela.
+
+```javascript
+const novoFilme = await Filme.create({
+  nome: 'Matrix',
+  ano: 1999
+});
+
+console.log(novoFilme.id);   // ID gerado automaticamente
+console.log(novoFilme.nome); // 'Matrix'
+```
+
+---
+
+### Read - Buscando registros
+
+#### Buscar todos os registros
+
+O método `findAll()` retorna todos os registros da tabela como um array.
+
+```javascript
+const filmes = await Filme.findAll();
+console.log(filmes); // array com todos os filmes
+```
+
+#### Buscar por ID
+
+O método `findByPk()` busca um registro pelo ID (Primary Key).
+
+```javascript
+const filme = await Filme.findByPk(1);
+console.log(filme.nome); // nome do filme com id 1
+```
+
+Se o registro não existir, o retorno será `null`.
+
+---
+
+### Update - Atualizando um registro
+
+Uma das formas de atualizar um registro é, depois de ter buscado, alterar a propriedade e utlizar o método `save()`:
+
+```javascript
+const filme = await Filme.findByPk(1);
+filme.ano = 2000;
+await filme.save();
+```
+
+---
+
+### Delete - Deletando um registro
+
+O método `destroy()` remove registros que atendam a uma condição.
+
+```javascript
+const filme = await Filme.findByPk(2);
+await Filme.destroy();
+```
+
+---
+
+## Atualização do Exemplo Completo - Express + Handlebars + Sequelize + SQLite3
+
+Agora, vamos adaptar nosso projeto para utilizar *Sequelize* e *SQLite*.
+
+### Estrutura do Projeto Atualizada
+
+```txt
+projeto/
+│
+├── app.js
+│
+└── views/
+│   │
+│   ├── home.handlebars
+│   ├── filmes.handlebars
+│   └── cadastrarFilme.handlebars
+│
+└── config/
+│   └── bd.js
+│
+└── models/
+    └── filme.model.js
+```
+
+Os arquivos **bd.js** e **filme.model.js** já foram criados durante a explicação do conteúdo.
+
+As *views* não precisarão ser alteradas.
+
+Só precisaremos alterar o **app.js**, principalmente as rotas.
+
+---
+
+### Adaptando o arquivo app.js
+
+Nas linhas iniciais iremos reforçar a importação da configuração do BD (já realizada durante o conteúdo), inclusão da importação do model Filme e também retirar o array de filmes (visto que iremos utilizar um BD):
+
+```javascript
+const express = require('express');
+const exphbs = require('express-handlebars');
+const sequelize = require('./config/bd');
+const Filme = require('./models/filme.model');
+
+const app = express();
+
+
+// Middleware para formulário
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+
+// Configurando Handlebars
+app.engine('handlebars', exphbs.engine({defaultLayout: false}));
+
+app.set('view engine', 'handlebars');
+```
+---
+
+Agora, vamos alterar cada uma das rotas. Iniciando pela listar filmes.
+Utilizamos a configuração `raw: true` para retornar apenas um objeto simples contendo apenas as propriedades de Filme e não um objeto completo contendo também, por exemplo, os métodos para as operações de CRUD (save, destroy, etc...).
+```javascript
+// Rota GET - Listar filmes
+app.get('/filmes', async (req, res) => {
+  const filmes = await Filme.findAll({raw: true});
+
+  res.render('filmes', { filmes });
+});
+```
+Rota cadastrar filme:
+```javascript
+app.post('/filmes', async (req, res) => {
+
+  const nome = req.body.nome;
+  const ano = req.body.ano;
+
+  await Filme.create({
+    nome: nome, 
+    ano: ano
+  });
+
+  res.redirect('/filmes');
+
+});
+```
+---
+
+Por fim, o último trecho:
+```javascript
+async function conectarBD() {
+  try {
+    await sequelize.sync();
+    console.log('Conexão com o banco de dados estabelecida com sucesso!');
+  } catch (erro) {
+    console.error('Erro ao conectar:', erro);
+  }
+}
+
+conectarBD();
+
+// Inicializando servidor
+app.listen(3000, () => {
+
+  console.log('Servidor executando em http://localhost:3000');
+
+});
+```
+---
+O arquivo **app.js** fica assim:
+```javascript
+const express = require('express');
+const exphbs = require('express-handlebars');
+const sequelize = require('./config/bd');
+const Filme = require('./models/filme.model');
+
+const app = express();
+
+// Middleware para formulário
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Configurando Handlebars
+app.engine('handlebars', exphbs.engine({defaultLayout: false}));
+
+app.set('view engine', 'handlebars');
+
+// Rota GET - Página inicial
+app.get('/', (req, res) => {
+
+  res.render('home', {
+    titulo: 'Página Inicial'
+  });
+
+});
+
+// Rota GET - Listar filmes
+app.get('/filmes', async (req, res) => {
+  const filmes = await Filme.findAll({raw: true});
+  res.render('filmes', { filmes });
+});
+
+// Rota GET - Formulário de cadastro
+app.get(
+  '/filmes/cadastrar', 
+  (req, res) =>  res.render('cadastrarFilme')
+);
+
+// Rota POST - Cadastrar filme
+app.post('/filmes', async (req, res) => {
+
+  const nome = req.body.nome;
+  const ano = req.body.ano;
+
+  await Filme.create({
+    nome: nome, 
+    ano: ano
+  });
+
+  res.redirect('/filmes');
+});
+
+async function conectarBD() {
+  try {
+    await sequelize.sync();
+    console.log('Conexão com o banco de dados estabelecida com sucesso!');
+  } catch (erro) {
+    console.error('Erro ao conectar:', erro);
+  }
+}
+
+conectarBD();
+
+// Inicializando servidor
+app.listen(3000, () => {
+
+  console.log('Servidor executando em http://localhost:3000');
+
+});
+```
+---
+---
+### Implementando o Editar e o Excluir
+Para implementar as operações de editar e excluir iremos adicionar botões na lista de Filmes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Rota deletar filme
+
+```javascript
+app.delete('/filmes/:id', async (req, res) => {
+  const id = req.params.id;
+  const filme = await Filme.findByPk(id);
+  await filme.destroy();
+  res.redirect('/filmes');
+});
+```
+
+```javascript
+```
