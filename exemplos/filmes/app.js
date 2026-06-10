@@ -2,8 +2,11 @@ const express = require('express');
 const exphbs = require('express-handlebars');
 const sequelize = require('./config/bd');
 const Filme = require('./models/filme.model');
+const methodOverride = require('method-override');
 
 const app = express();
+
+app.use(methodOverride('_method'));
 
 // Middleware para formulário
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +51,43 @@ app.post('/filmes', async (req, res) => {
 
   res.redirect('/filmes');
 });
+
+app.get(
+  '/filmes/:id/editar', 
+  async (req, res) => {
+    const id = req.params.id;
+    const filme = await Filme.findByPk(id, {raw: true});
+    res.render('editarFilme', { filme });
+  }
+);
+
+app.put(
+  '/filmes/:id', 
+  async (req, res) => {
+    const id = req.params.id;
+    const nome = req.body.nome;
+    const ano = req.body.ano;
+    
+    const filme = await Filme.findByPk(id);
+    
+    filme.nome = nome;
+    filme.ano = ano;
+    await filme.save();
+
+    res.redirect('/filmes');
+  }
+);
+
+app.delete(
+  '/filmes/:id', 
+  async (req, res) => {
+    const id = req.params.id;
+    const filme = await Filme.findByPk(id);
+    await filme.destroy();
+    res.redirect('/filmes');
+  }
+);
+
 
 async function conectarBD() {
   try {
