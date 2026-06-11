@@ -92,7 +92,7 @@ Cada propriedade do model vira uma coluna na tabela.
 
 #### Criando um Model
 
-Na pasta *models/* crie o arquivo **Filme.model.js**:
+Na pasta *models* crie o arquivo **Filme.model.js**:
 
 ```javascript
 const { DataTypes } = require('sequelize');
@@ -147,6 +147,11 @@ Portanto, vamos alterar o método `conectarBD()` do arquivo **app.js**. O métod
 
 ```javascript
     await sequelize.sync();
+```
+
+Também é necessário incluir a importação ao model `filme.model.js`:
+```javascript
+const Filme = require('./models/filme');
 ```
 ---
 

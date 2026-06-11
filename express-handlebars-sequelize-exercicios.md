@@ -34,27 +34,36 @@ Crie um model `Usuario` com as propriedades:
 
 #### Exercício 4
 
-Usando o model `Produto`, crie três produtos com `create()` e liste todos eles com `findAll()`.
+Crie uma rota GET para '/exercicio4' que, usando o model `Produto`, crie três produtos com `create()`, depois recupere todos eles com `findAll()` e imprima com `console.log()`.
+
+Obs.: No final, precisa usar o `res.send()` senão o navegador (chrome, firefox) ficará "carregando" eternamente.
+
 
 ---
 
 #### Exercício 5
 
-Busque um produto pelo ID com `findByPk()`.
+Crie uma rota GET para '/exercicio5 que busque um produto pelo ID com `findByPk()`.
 Exiba o nome e o preço no terminal.
+
+Obs.: No final, precisa usar o `res.send()` senão o navegador (chrome, firefox) ficará "carregando" eternamente.
 
 ---
 
 #### Exercício 6
 
-Atualize o preço de um produto usando `save()`.
+Crie uma rota GET para '/exercicio6 que atualize o preço de um produto usando `save()`.
+
+Obs.: No final, precisa usar o `res.send()` senão o navegador (chrome, firefox) ficará "carregando" eternamente.
 
 ---
 
 #### Exercício 7
 
-Delete um produto usando `destroy()`.
-Depois liste todos os produtos para confirmar a remoção.
+Crie uma rota GET para '/exercicio6 que busque e delete um produto usando `destroy()`.
+Depois liste todos os produtos no terminal para confirmar a remoção.
+
+Obs.: No final, precisa usar o `res.send()` senão o navegador (chrome, firefox) ficará "carregando" eternamente.
 
 ---
 
