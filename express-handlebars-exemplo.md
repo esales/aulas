@@ -110,7 +110,7 @@ app.listen(3000, () => {
 
 ### views/home.handlebars
 
-```html
+```handlebars
 <h1>{{titulo}}</h1>
 
 <p>Bem-vindo ao sistema de filmes.</p>
@@ -124,7 +124,7 @@ app.listen(3000, () => {
 
 ### views/filmes.handlebars
 
-```html
+```handlebars
 <h1>Lista de Filmes</h1>
 
 <a href="/filmes/cadastrar">
@@ -150,7 +150,7 @@ app.listen(3000, () => {
 
 ### views/cadastrarFilme.handlebars
 
-```html
+```handlebars
 <h1>Cadastrar Filme</h1>
 
 <form action="/filmes" method="POST">

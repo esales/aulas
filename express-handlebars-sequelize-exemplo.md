@@ -360,7 +360,7 @@ app.listen(3000, () => {
 ---
 
 Deve ser criado a view editarFilme.handlebars. Ela é basicamente a tela de cadastrar porém com os atributos *value* já preenchidos e submete uma requisição do tipo **PUT**:
-```javascript
+```handlebars
 <h1>Editar Filme</h1>
 
 <form action="/filmes/{{filme.id}}?_method=PUT" method="POST">
@@ -392,7 +392,7 @@ No arquivo **filmes.handlebars**, cada filme da lista deve vir acompanhado de 2 
 O "botão" de editar será um elemento `a` realizando uma requisição **GET**.
 Já o de excluir terá um `form` com um `button` e submete uma requisição do tipo **DELETE**.
 Ambos têm um elemento `i` ligado a uma determinada classe do `Font Awesome`.
-```javascript
+```handlebars
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <h1>Lista de Filmes</h1>
