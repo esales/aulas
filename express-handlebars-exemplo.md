@@ -109,7 +109,7 @@ app.listen(3000, () => {
 ---
 
 ### views/home.handlebars
-
+{% raw %}
 ```handlebars
 <h1>{{titulo}}</h1>
 
@@ -119,7 +119,7 @@ app.listen(3000, () => {
   Ver filmes
 </a>
 ```
-
+{% endraw %}
 ---
 
 ### views/filmes.handlebars
