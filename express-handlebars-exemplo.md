@@ -123,7 +123,7 @@ app.listen(3000, () => {
 ---
 
 ### views/filmes.handlebars
-
+{% raw %}
 ```handlebars
 <h1>Lista de Filmes</h1>
 
@@ -145,7 +145,7 @@ app.listen(3000, () => {
 
 </ul>
 ```
-
+{% endraw %}
 ---
 
 ### views/cadastrarFilme.handlebars
