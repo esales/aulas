@@ -179,7 +179,7 @@ app.listen(3000, () => {
 Execute, no terminal, com:
 
 ```bash
-node --watch index.js
+node --watch app.js
 ```
 
 Acesse `http://localhost:3000` no navegador (Chrome, Firefox, Safari, etc) e você verá "Testando o express!".

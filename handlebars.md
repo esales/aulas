@@ -59,6 +59,7 @@ views/
 
 #### Expressões simples:
 Permitem exibir valores dinâmicos enviados pelo servidor diretamente no HTML usando {{ }}.
+{% raw %}
 
 ```html
 {{nome}}
@@ -196,6 +197,7 @@ View `home.handlebars`:
   {{/each}}
 </ul>
 ```
+{% endraw %}
 
 ---
 ---
