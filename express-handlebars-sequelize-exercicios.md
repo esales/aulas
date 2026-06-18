@@ -60,7 +60,7 @@ Obs.: No final, precisa usar o `res.send()` senão o navegador (chrome, firefox)
 
 #### Exercício 7
 
-Crie uma rota GET para '/exercicio6 que busque e delete um produto usando `destroy()`.
+Crie uma rota GET para '/exercicio7 que busque e delete um produto usando `destroy()`.
 Depois liste todos os produtos no terminal para confirmar a remoção.
 
 Obs.: No final, precisa usar o `res.send()` senão o navegador (chrome, firefox) ficará "carregando" eternamente.
@@ -129,10 +129,12 @@ O sistema deve:
 - utilizar Handlebars
 - utilizar Sequelize e SQLite3
 - utilizar um model `Video` com todas as propriedades do exercício anterior
-- persistir os dados no banco
-- listar os vídeos buscando do banco com `findAll()`
-- cadastrar vídeos salvando no banco com `create()`
-- ter um botão de remoção em cada vídeo usando `destroy()`
+- persistir os dados no banco de dados SQLite
+- ter telas para realizar as operações de CRUD do recurso Vídeo:
+-- criar;
+-- listar;
+-- atualizar;
+-- excluir.
 
 ---
 ---
