@@ -16,6 +16,17 @@
 
   <br>
 
+  <div>
+    <label>Diretor:</label>
+    <select name="diretorId">
+      {{#each diretores}}
+        <option value="{{this.id}}">{{this.nome}}</option>
+      {{/each}}
+    </select>
+  </div>
+
+  <br>
+
   <button type="submit">
     Cadastrar
   </button>
