@@ -23,4 +23,15 @@
 
     <label>Diretor</label>
     <a href='/diretores/{{filme.diretor.id}}'>{{filme.diretor.nome}} - {{filme.diretor.anoNascimento}} - {{filme.diretor.nacionalidade}}</a><br>
+    <br>
+
+    <label>Artistas</label>
+    <ul>
+      {{#each filme.artistas}}
+        <li>
+          <a href='/artistas/{{this.id}}'>{{this.nome}} - {{this.anoNascimento}}</a><br>
+        </li>
+      {{/each}}
+    </ul>
+
 </ul>

@@ -33,6 +33,15 @@
     <input type="text" name="foto">
   </div>
 
+  <div>
+    <label>Filmes:</label>
+    <select name="filmes" multiple>
+      {{#each filmes}}
+        <option value="{{this.id}}">{{this.nome}}</option>
+      {{/each}} 
+      </select>
+  </div>
+
   <button type="submit">
     Cadastrar
   </button>

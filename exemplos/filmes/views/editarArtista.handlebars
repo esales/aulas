@@ -33,6 +33,18 @@
     <label>Foto:</label>
     <input type="text" name="foto" value="{{artista.foto}}">
   </div>
+  <br>
+
+  <div>
+    <label>Filmes:</label>
+    <select name="filmes" multiple>
+      {{#each filmes}}
+        <option value="{{this.id}}" {{#if (eq this.id @root.artista.filmeId)}}selected{{/if}}>
+          {{this.nome}}
+        </option>
+      {{/each}} 
+    </select>
+  </div>
 
   <button type="submit">
     Editar

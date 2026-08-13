@@ -16,7 +16,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Configurando Handlebars
-app.engine('handlebars', exphbs.engine({defaultLayout: false}));
+app.engine('handlebars', exphbs.engine({
+  defaultLayout: false,
+  helpers: {
+      eq: function (v1, v2) {
+        return v1 == v2; 
+      }
+  }
+}));
 
 app.set('view engine', 'handlebars');
 
@@ -40,7 +47,8 @@ app.get(
   '/filmes/cadastrar', 
   async (req, res) => {
     const diretores = await Diretor.findAll({raw: true});
-    res.render('cadastrarFilme', { diretores });
+    const artistas = await Artista.findAll({raw: true});
+    res.render('cadastrarFilme', { diretores, artistas });
   }
 );
 
@@ -50,12 +58,16 @@ app.post('/filmes', async (req, res) => {
   const nome = req.body.nome;
   const ano = req.body.ano;
   const diretorId = req.body.diretorId;
+  const artistas = req.body.artistas; 
 
-  await Filme.create({
+  const filme = await Filme.create({
     nome: nome, 
     ano: ano,
-    diretorId: diretorId
+    diretorId: diretorId,
   });
+
+  if (artistas && artistas.length > 0) 
+    await filme.setArtistas(artistas);
 
   res.redirect('/filmes');
 });
@@ -66,7 +78,8 @@ app.get(
     const id = req.params.id;
     const filme = await Filme.findByPk(id, {raw: true});
     const diretores = await Diretor.findAll({raw: true});
-    res.render('editarFilme', { filme, diretores });
+    const artistas = await Artista.findAll({raw: true});
+    res.render('editarFilme', { filme, diretores, artistas });
   }
 );
 
@@ -77,6 +90,7 @@ app.put(
     const nome = req.body.nome;
     const ano = req.body.ano;
     const diretorId = req.body.diretorId;
+    const artistas = req.body.artistas;
     
     const filme = await Filme.findByPk(id);
     
@@ -84,6 +98,9 @@ app.put(
     filme.ano = ano;
     filme.diretorId = diretorId;
     await filme.save();
+
+    if (artistas && artistas.length > 0)
+      await filme.setArtistas(artistas);
 
     res.redirect('/filmes');
   }
@@ -103,7 +120,12 @@ app.get(
   '/filmes/:id', 
   async (req, res) => {
     const id = req.params.id;
-    const filme = await Filme.findByPk(id, { include: [{ model: Diretor, as: 'diretor' }] });
+    const filme = await Filme.findByPk(
+      id, 
+      { include: [
+                  { model: Diretor, as: 'diretor' },
+                  { model: Artista, as: 'artistas' }
+                  ] });
     res.render('detalharFilme', { filme: filme.toJSON() });
   }
 );
@@ -190,7 +212,10 @@ app.get('/artistas', async (req, res) => {
 // Rota GET - Formulário de cadastro
 app.get(
   '/artistas/cadastrar', 
-  (req, res) => res.render('cadastrarArtista')
+  async (req, res) => {
+    const filmes = await Filme.findAll({raw:true});
+    res.render('cadastrarArtista', { filmes });
+  }
 );
 
 // Rota POST - Cadastrar artist
@@ -201,14 +226,18 @@ app.post('/artistas', async (req, res) => {
   const nomeArtistico = req.body.nomeArtistico;
   const emAtividade = req.body.emAtividade;
   const foto = req.body.foto;
+  const filmes = req.body.filmes;
 
-  await Artista.create({
+  const artista =await Artista.create({
     nome: nome,
     anoNascimento: anoNascimento,
     nomeArtistico: nomeArtistico,
     emAtividade: emAtividade,
     foto: foto
   });
+
+  if (filmes && filmes.length >0)
+    await artista.setFilmes(filmes);
 
   res.redirect('/artistas');
 });
@@ -218,7 +247,8 @@ app.get(
   async (req, res) => {
     const id = req.params.id;
     const artista = await Artista.findByPk(id, {raw: true});
-    res.render('editarArtista', { artista });
+    const filmes = await Filme.findAll({raw:true});
+    res.render('editarArtista', { artista, filmes });
   }
 );
 
@@ -231,6 +261,7 @@ app.put(
     const nomeArtistico = req.body.nomeArtistico;
     const emAtividade = req.body.emAtividade;
     const foto = req.body.foto;
+    const filmes = req.body.filmes;
 
     const artista = await Artista.findByPk(id);
 
@@ -240,6 +271,9 @@ app.put(
     artista.emAtividade = emAtividade;
     artista.foto = foto;
     await artista.save();
+
+    if (filmes && filmes.length>0)
+      await artista.setFilmes(filmes);
 
     res.redirect('/artistas');
   }

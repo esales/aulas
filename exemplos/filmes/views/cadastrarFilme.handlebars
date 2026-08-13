@@ -27,6 +27,15 @@
 
   <br>
 
+  <div>
+    <label>Artistas:</label>
+    <select name="artistas" multiple>
+      {{#each artistas}}
+        <option value="{{this.id}}">{{this.nome}}</option>
+      {{/each}}
+    </select>
+  </div>
+
   <button type="submit">
     Cadastrar
   </button>
