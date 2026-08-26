@@ -2,6 +2,10 @@
 
 <h1>Lista de Filmes</h1>
 
+<a href="/">
+  Inicial
+</a><br>
+
 <a href="/filmes/cadastrar">
   Cadastrar Filme
 </a>
@@ -13,7 +17,7 @@
   {{#each filmes}}
 
     <li>
-      {{this.nome}} - {{this.ano}} 
+      <a href="/filmes/{{this.id}}">{{this.nome}} - {{this.ano}}</a>
 
       <a href="/filmes/{{this.id}}/editar"><i class="fa-solid fa-pen-to-square"></i></a>
       

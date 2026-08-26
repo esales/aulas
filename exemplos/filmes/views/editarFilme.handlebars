@@ -16,6 +16,30 @@
 
   <br>
 
+  <div>
+    <label>Diretor:</label>
+    <select name="diretorId">
+      {{#each diretores}}
+        <option value="{{this.id}}" {{#if (eq this.id @root.filme.diretorId)}}selected{{/if}}>
+          {{this.nome}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
+  <br>
+
+  <div>
+    <label>Artistas:</label>
+    <select name="artistas" multiple>
+      {{#each artistas}}
+        <option value="{{this.id}}" {{#if (eq this.id @root.filme.artistaId)}}selected{{/if}}>
+          {{this.nome}}
+        </option>
+      {{/each}}
+    </select>
+  </div>
+
   <button type="submit">
     Editar
   </button>
