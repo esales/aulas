@@ -7,3 +7,6 @@
 5. [Sequelize](sequelize.md)
 6. [Exemplo com Express, Handlebars e Sequelize](express-handlebars-sequelize-exemplo.md)
 7. [Exercícios com Express, Handlebars e Sequelize](express-handlebars-sequelize-exercicios.md)
+8. [Sequelize - Relacionamento entre models/tabelas](sequelize-relacionamentos.md)
+9. [Exemplo com Sequelize - Relacionamento entre models/tabelas](sequelize-relacionamentos-exemplo.md)
+10. [Exercícios com Sequelize - Relacionamento entre models/tabelas](sequelize-relacionamentos-exercicios.md)
