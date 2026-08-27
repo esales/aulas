@@ -146,7 +146,7 @@ app.get('/filmes/:id/ficha-tecnica/cadastrar', async (req, res) => {
 });
 ```
 
-Rota para salvar a ficha técnica, utilizando o método mágico `createFichaTecnica`, gerado pelo `hasOne`:
+Rota para salvar a ficha técnica utilizando o método mágico `createFichaTecnica` gerado pelo `hasOne`:
 ```javascript
 app.post('/filmes/:id/ficha-tecnica', async (req, res) => {
   const id = req.params.id;
