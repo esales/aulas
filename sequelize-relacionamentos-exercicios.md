@@ -128,11 +128,11 @@ Estenda o mini-TikTok (já refatorado para usar Sequelize e SQLite3) adicionando
 O sistema deve:
 
 - criar o model `Criador`, com `nome`, `nomeUsuario` e `seguidores`
-- relacionar `Criador` e `Video` como **1:N** (um criador tem vários vídeos) — remova o campo solto "nome do criador" de `Video` e substitua por essa associação
+- relacionar `Criador` e `Video` como **1:N** (um criador tem vários vídeos) - remova o campo solto "nome do criador" de `Video` e substitua por essa associação
 - criar o model `PerfilCriador`, com `bio`, `fotoUrl` e `linkRedeSocial`
 - relacionar `Criador` e `PerfilCriador` como **1:1**
 - criar o model `Hashtag`, com `nome`
-- relacionar `Video` e `Hashtag` como **N:N** — remova o campo solto "hashtag principal" de `Video` e substitua por essa associação
+- relacionar `Video` e `Hashtag` como **N:N** - remova o campo solto "hashtag principal" de `Video` e substitua por essa associação
 - na tela de cadastro de vídeo, incluir um `<select>` para escolher o criador e um `<select multiple>` para escolher as hashtags
 - na tela de detalhamento do vídeo, exibir o criador (com link) e a lista de hashtags
 - na tela de detalhamento do criador, exibir o perfil (bio, foto, link) e a lista de vídeos publicados por ele
