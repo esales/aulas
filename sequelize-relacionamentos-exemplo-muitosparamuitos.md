@@ -79,6 +79,7 @@ app.get('/artistas', async (req, res) => {
 
 **View artistas.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>Artistas</h1>
 
@@ -92,6 +93,7 @@ app.get('/artistas', async (req, res) => {
   {{/each}}
 </ul>
 ```
+{% endraw %}
 
 **Rota para exibir o formulário de cadastro:**
 
@@ -103,6 +105,7 @@ app.get('/artistas/cadastrar', (req, res) => {
 
 **View cadastrarArtista.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>Cadastrar Artista</h1>
 
@@ -133,6 +136,7 @@ app.get('/artistas/cadastrar', (req, res) => {
 
 </form>
 ```
+{% endraw %}
 
 **Rota para salvar:**
 
@@ -167,6 +171,7 @@ app.get('/filmes/cadastrar', async (req, res) => {
 
 **View cadastrarFilme.handlebars**, com um `<select multiple>` para os artistas:
 
+{% raw %}
 ```handlebars
 <h1>Cadastrar Filme</h1>
 
@@ -201,6 +206,7 @@ app.get('/filmes/cadastrar', async (req, res) => {
 
 </form>
 ```
+{% endraw %}
 
 **Rota para salvar o filme**, agora associando os artistas escolhidos com o método `setArtistas()`, gerado pelo `belongsToMany`:
 
@@ -243,6 +249,7 @@ app.get('/filmes/:id', async (req, res) => {
 
 **View detalharFilme.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>{{filme.nome}} ({{filme.ano}})</h1>
 
@@ -253,6 +260,7 @@ app.get('/filmes/:id', async (req, res) => {
   {{/each}}
 </ul>
 ```
+{% endraw %}
 
 ---
 
@@ -274,6 +282,7 @@ app.get('/artistas/:id', async (req, res) => {
 
 **View detalharArtista.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>{{artista.nome}}</h1>
 
@@ -287,6 +296,7 @@ app.get('/artistas/:id', async (req, res) => {
   {{/each}}
 </ul>
 ```
+{% endraw %}
 
 ---
 

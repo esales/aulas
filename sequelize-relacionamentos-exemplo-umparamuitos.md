@@ -78,6 +78,7 @@ app.get('/diretores', async (req, res) => {
 
 **View diretores.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>Diretores</h1>
 
@@ -91,6 +92,7 @@ app.get('/diretores', async (req, res) => {
   {{/each}}
 </ul>
 ```
+{% endraw %}
 
 **Rota para exibir o formulário de cadastro:**
 
@@ -102,6 +104,7 @@ app.get('/diretores/cadastrar', (req, res) => {
 
 **View cadastrarDiretor.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>Cadastrar Diretor</h1>
 
@@ -132,6 +135,7 @@ app.get('/diretores/cadastrar', (req, res) => {
 
 </form>
 ```
+{% endraw %}
 
 **Rota para salvar:**
 
@@ -166,6 +170,7 @@ app.get('/filmes/cadastrar', async (req, res) => {
 
 **View cadastrarFilme.handlebars**, com um `<select>` para o diretor:
 
+{% raw %}
 ```handlebars
 <h1>Cadastrar Filme</h1>
 
@@ -200,6 +205,7 @@ app.get('/filmes/cadastrar', async (req, res) => {
 
 </form>
 ```
+{% endraw %}
 
 **Rota para salvar o filme**, agora recebendo o `diretorId`:
 
@@ -239,6 +245,7 @@ app.get('/filmes/:id', async (req, res) => {
 
 **View detalharFilme.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>{{filme.nome}} ({{filme.ano}})</h1>
 
@@ -247,6 +254,7 @@ app.get('/filmes/:id', async (req, res) => {
   <a href="/diretores/{{filme.diretor.id}}">{{filme.diretor.nome}}</a>
 {{/if}}
 ```
+{% endraw %}
 
 ---
 
@@ -268,6 +276,7 @@ app.get('/diretores/:id', async (req, res) => {
 
 **View detalharDiretor.handlebars:**
 
+{% raw %}
 ```handlebars
 <h1>{{diretor.nome}}</h1>
 
@@ -281,6 +290,7 @@ app.get('/diretores/:id', async (req, res) => {
   {{/each}}
 </ul>
 ```
+{% endraw %}
 
 ---
 
