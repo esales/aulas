@@ -13,3 +13,7 @@
 11. [Exemplo com Sequelize - Relacionamento entre models/tabelas - Muitos Para Muitos](sequelize-relacionamentos-exemplo-muitosparamuitos.md)
 
 12. [Exercícios com Sequelize - Relacionamento entre models/tabelas](sequelize-relacionamentos-exercicios.md)
+
+13. [Autenticação com Passport.js](autenticacao.md)
+14. [Exemplo de Autenticação com Passport.js](autenticacao-exemplo.md)
+15. [Exercícios sobre Autenticação com Passport.js](autenticacao-exercicios.md)
