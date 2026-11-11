@@ -1,0 +1,290 @@
+const express = require('express');
+const router = express.Router();
+const Filme = require('../models/filme.model');
+const Diretor = require('../models/diretor.model');
+const Artista = require('../models/artista.model');
+
+const { autenticado } = require('../middlewares/auth');
+
+// Rota GET - Página inicial
+router.get('/', autenticado, (req, res) => {
+
+  res.render('home', {
+    titulo: 'Página Inicial',
+    usuario: req.user.toJSON()
+  });
+
+});
+
+// Rota GET - Listar filmes
+router.get('/filmes', autenticado, async (req, res) => {
+  const filmes = await Filme.findAll({raw: true});
+  res.render('filmes', { filmes });
+});
+
+// Rota GET - Formulário de cadastro
+router.get(
+  '/filmes/cadastrar', 
+  autenticado,
+  async (req, res) => {
+    const diretores = await Diretor.findAll({raw: true});
+    const artistas = await Artista.findAll({raw: true});
+    res.render('cadastrarFilme', { diretores, artistas });
+  }
+);
+
+// Rota POST - Cadastrar filme
+router.post('/filmes', autenticado, async (req, res) => {
+
+  const nome = req.body.nome;
+  const ano = req.body.ano;
+  const diretorId = req.body.diretorId;
+  const artistas = req.body.artistas; 
+
+  const filme = await Filme.create({
+    nome: nome, 
+    ano: ano,
+    diretorId: diretorId,
+  });
+
+  if (artistas && artistas.length > 0) 
+    await filme.setArtistas(artistas);
+
+  res.redirect('/filmes');
+});
+
+router.get(
+  '/filmes/:id/editar', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const filme = await Filme.findByPk(id, {raw: true});
+    const diretores = await Diretor.findAll({raw: true});
+    const artistas = await Artista.findAll({raw: true});
+    res.render('editarFilme', { filme, diretores, artistas });
+  }
+);
+
+router.put(
+  '/filmes/:id', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const nome = req.body.nome;
+    const ano = req.body.ano;
+    const diretorId = req.body.diretorId;
+    const artistas = req.body.artistas;
+    
+    const filme = await Filme.findByPk(id);
+    
+    filme.nome = nome;
+    filme.ano = ano;
+    filme.diretorId = diretorId;
+    await filme.save();
+
+    if (artistas && artistas.length > 0)
+      await filme.setArtistas(artistas);
+
+    res.redirect('/filmes');
+  }
+);
+
+router.delete(
+  '/filmes/:id', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const filme = await Filme.findByPk(id);
+    await filme.destroy();
+    res.redirect('/filmes');
+  }
+);
+
+router.get(
+  '/filmes/:id', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const filme = await Filme.findByPk(
+      id, 
+      { include: [
+                  { model: Diretor, as: 'diretor' },
+                  { model: Artista, as: 'artistas' }
+                  ] });
+    res.render('detalharFilme', { filme: filme.toJSON() });
+  }
+);
+
+// Rota GET - Listar diretores
+router.get('/diretores', autenticado, async (req, res) => {
+  const diretores = await Diretor.findAll({raw: true});
+  res.render('diretores', { diretores });
+});
+
+// Rota GET - Formulário de cadastro
+router.get(
+  '/diretores/cadastrar', 
+  autenticado,
+  (req, res) => res.render('cadastrarDiretor')
+);
+
+// Rota POST - Cadastrar diretor
+router.post('/diretores', autenticado, async (req, res) => {
+
+  const nome = req.body.nome;
+  const anoNascimento = req.body.anoNascimento;
+  const nacionalidade = req.body.nacionalidade;
+
+  await Diretor.create({
+    nome: nome,
+    anoNascimento: anoNascimento,
+    nacionalidade: nacionalidade
+  });
+
+  res.redirect('/diretores');
+});
+
+router.get(
+  '/diretores/:id/editar', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const diretor = await Diretor.findByPk(id, {raw: true});
+    res.render('editarDiretor', { diretor });
+  }
+);
+
+router.put(
+  '/diretores/:id', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const nome = req.body.nome;
+    const anoNascimento = req.body.anoNascimento;
+    const nacionalidade = req.body.nacionalidade;
+    
+    const diretor = await Diretor.findByPk(id);
+    
+    diretor.nome = nome;
+    diretor.anoNascimento = anoNascimento;
+    diretor.nacionalidade = nacionalidade;
+    await diretor.save();
+
+    res.redirect('/diretores');
+  }
+);
+
+router.delete(
+  '/diretores/:id', 
+  async (req, res) => {
+    const id = req.params.id;
+    const diretor = await Diretor.findByPk(id);
+    await diretor.destroy();
+    res.redirect('/diretores');
+  }
+);
+
+router.get('/diretores/:id', autenticado, async (req, res) => {
+  const id = req.params.id;
+  const diretor = await Diretor.findByPk(id, { include: [{ model: Filme, as: 'filmes' }] });
+  res.render('detalharDiretor', { diretor: diretor.toJSON() });
+});
+
+
+// Rota GET - Listar artistas
+router.get('/artistas', autenticado, async (req, res) => {
+  const artistas = await Artista.findAll({raw: true});
+  res.render('artistas', { artistas });
+});
+
+// Rota GET - Formulário de cadastro
+router.get(
+  '/artistas/cadastrar', 
+  autenticado,
+  async (req, res) => {
+    const filmes = await Filme.findAll({raw:true});
+    res.render('cadastrarArtista', { filmes });
+  }
+);
+
+// Rota POST - Cadastrar artist
+router.post('/artistas', autenticado, async (req, res) => {
+
+  const nome = req.body.nome;
+  const anoNascimento = req.body.anoNascimento;
+  const nomeArtistico = req.body.nomeArtistico;
+  const emAtividade = req.body.emAtividade;
+  const foto = req.body.foto;
+  const filmes = req.body.filmes;
+
+  const artista =await Artista.create({
+    nome: nome,
+    anoNascimento: anoNascimento,
+    nomeArtistico: nomeArtistico,
+    emAtividade: emAtividade,
+    foto: foto
+  });
+
+  if (filmes && filmes.length >0)
+    await artista.setFilmes(filmes);
+
+  res.redirect('/artistas');
+});
+
+router.get(
+  '/artistas/:id/editar', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const artista = await Artista.findByPk(id, {raw: true});
+    const filmes = await Filme.findAll({raw:true});
+    res.render('editarArtista', { artista, filmes });
+  }
+);
+
+router.put(
+  '/artistas/:id', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const nome = req.body.nome;
+    const anoNascimento = req.body.anoNascimento;
+    const nomeArtistico = req.body.nomeArtistico;
+    const emAtividade = req.body.emAtividade;
+    const foto = req.body.foto;
+    const filmes = req.body.filmes;
+
+    const artista = await Artista.findByPk(id);
+
+    artista.nome = nome;
+    artista.anoNascimento = anoNascimento;
+    artista.nomeArtistico = nomeArtistico;
+    artista.emAtividade = emAtividade;
+    artista.foto = foto;
+    await artista.save();
+
+    if (filmes && filmes.length>0)
+      await artista.setFilmes(filmes);
+
+    res.redirect('/artistas');
+  }
+);
+
+router.delete(
+  '/artistas/:id', 
+  autenticado,
+  async (req, res) => {
+    const id = req.params.id;
+    const artista = await Artista.findByPk(id);
+    await artista.destroy();
+    res.redirect('/artistas');
+  }
+);
+
+router.get('/artistas/:id', autenticado, async (req, res) => {
+  const id = req.params.id;
+  const artista = await Artista.findByPk(id, { include: [{ model: Filme, as: 'filmes' }] });
+  res.render('detalharArtista', { artista: artista.toJSON() });
+});
+
+module.exports = router;
