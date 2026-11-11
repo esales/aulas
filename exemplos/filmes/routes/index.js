@@ -6,8 +6,10 @@ const Artista = require('../models/artista.model');
 
 const { autenticado } = require('../middlewares/auth');
 
+router.use(autenticado);
+
 // Rota GET - Página inicial
-router.get('/', autenticado, (req, res) => {
+router.get('/', (req, res) => {
 
   res.render('home', {
     titulo: 'Página Inicial',
@@ -17,7 +19,7 @@ router.get('/', autenticado, (req, res) => {
 });
 
 // Rota GET - Listar filmes
-router.get('/filmes', autenticado, async (req, res) => {
+router.get('/filmes', async (req, res) => {
   const filmes = await Filme.findAll({raw: true});
   res.render('filmes', { filmes });
 });
@@ -25,7 +27,7 @@ router.get('/filmes', autenticado, async (req, res) => {
 // Rota GET - Formulário de cadastro
 router.get(
   '/filmes/cadastrar', 
-  autenticado,
+  
   async (req, res) => {
     const diretores = await Diretor.findAll({raw: true});
     const artistas = await Artista.findAll({raw: true});
@@ -34,7 +36,7 @@ router.get(
 );
 
 // Rota POST - Cadastrar filme
-router.post('/filmes', autenticado, async (req, res) => {
+router.post('/filmes', async (req, res) => {
 
   const nome = req.body.nome;
   const ano = req.body.ano;
@@ -55,7 +57,7 @@ router.post('/filmes', autenticado, async (req, res) => {
 
 router.get(
   '/filmes/:id/editar', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const filme = await Filme.findByPk(id, {raw: true});
@@ -67,7 +69,7 @@ router.get(
 
 router.put(
   '/filmes/:id', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const nome = req.body.nome;
@@ -91,7 +93,7 @@ router.put(
 
 router.delete(
   '/filmes/:id', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const filme = await Filme.findByPk(id);
@@ -102,7 +104,7 @@ router.delete(
 
 router.get(
   '/filmes/:id', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const filme = await Filme.findByPk(
@@ -116,7 +118,7 @@ router.get(
 );
 
 // Rota GET - Listar diretores
-router.get('/diretores', autenticado, async (req, res) => {
+router.get('/diretores', async (req, res) => {
   const diretores = await Diretor.findAll({raw: true});
   res.render('diretores', { diretores });
 });
@@ -124,12 +126,12 @@ router.get('/diretores', autenticado, async (req, res) => {
 // Rota GET - Formulário de cadastro
 router.get(
   '/diretores/cadastrar', 
-  autenticado,
+  
   (req, res) => res.render('cadastrarDiretor')
 );
 
 // Rota POST - Cadastrar diretor
-router.post('/diretores', autenticado, async (req, res) => {
+router.post('/diretores', async (req, res) => {
 
   const nome = req.body.nome;
   const anoNascimento = req.body.anoNascimento;
@@ -146,7 +148,7 @@ router.post('/diretores', autenticado, async (req, res) => {
 
 router.get(
   '/diretores/:id/editar', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const diretor = await Diretor.findByPk(id, {raw: true});
@@ -156,7 +158,7 @@ router.get(
 
 router.put(
   '/diretores/:id', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const nome = req.body.nome;
@@ -184,7 +186,7 @@ router.delete(
   }
 );
 
-router.get('/diretores/:id', autenticado, async (req, res) => {
+router.get('/diretores/:id', async (req, res) => {
   const id = req.params.id;
   const diretor = await Diretor.findByPk(id, { include: [{ model: Filme, as: 'filmes' }] });
   res.render('detalharDiretor', { diretor: diretor.toJSON() });
@@ -192,7 +194,7 @@ router.get('/diretores/:id', autenticado, async (req, res) => {
 
 
 // Rota GET - Listar artistas
-router.get('/artistas', autenticado, async (req, res) => {
+router.get('/artistas', async (req, res) => {
   const artistas = await Artista.findAll({raw: true});
   res.render('artistas', { artistas });
 });
@@ -200,7 +202,7 @@ router.get('/artistas', autenticado, async (req, res) => {
 // Rota GET - Formulário de cadastro
 router.get(
   '/artistas/cadastrar', 
-  autenticado,
+  
   async (req, res) => {
     const filmes = await Filme.findAll({raw:true});
     res.render('cadastrarArtista', { filmes });
@@ -208,7 +210,7 @@ router.get(
 );
 
 // Rota POST - Cadastrar artist
-router.post('/artistas', autenticado, async (req, res) => {
+router.post('/artistas', async (req, res) => {
 
   const nome = req.body.nome;
   const anoNascimento = req.body.anoNascimento;
@@ -233,7 +235,7 @@ router.post('/artistas', autenticado, async (req, res) => {
 
 router.get(
   '/artistas/:id/editar', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const artista = await Artista.findByPk(id, {raw: true});
@@ -244,7 +246,7 @@ router.get(
 
 router.put(
   '/artistas/:id', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const nome = req.body.nome;
@@ -272,7 +274,7 @@ router.put(
 
 router.delete(
   '/artistas/:id', 
-  autenticado,
+  
   async (req, res) => {
     const id = req.params.id;
     const artista = await Artista.findByPk(id);
@@ -281,7 +283,7 @@ router.delete(
   }
 );
 
-router.get('/artistas/:id', autenticado, async (req, res) => {
+router.get('/artistas/:id', async (req, res) => {
   const id = req.params.id;
   const artista = await Artista.findByPk(id, { include: [{ model: Filme, as: 'filmes' }] });
   res.render('detalharArtista', { artista: artista.toJSON() });
