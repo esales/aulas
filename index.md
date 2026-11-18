@@ -17,3 +17,6 @@
 13. [Autenticação com Passport.js](autenticacao.md)
 14. [Exemplo de Autenticação com Passport.js](autenticacao-exemplo.md)
 15. [Exercícios sobre Autenticação com Passport.js](autenticacao-exercicios.md)
+
+16. [React](react.md)
+17. [Exemplo com React](react-exemplo.md)
